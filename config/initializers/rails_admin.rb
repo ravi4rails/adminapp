@@ -42,4 +42,43 @@ RailsAdmin.config do |config|
     history_index
     history_show
   end
+
+  # By default all fields are visible, but they are not presented in any particular order. If you specifically declare fields, only defined fields will be visible and they will be presented in the order defined
+
+  # Displaying and using only specific fields into the defined order.
+
+  RailsAdmin.config do |config|
+    config.model 'User' do
+      list do
+        field :id
+        field :email
+        field :sign_in_count
+      end
+      create do
+        field :email do 
+          help 'Required: Must provide email.'
+        end
+        field :password do 
+          help 'Password must be at least 8 character long.'
+        end
+        field :password_confirmation do
+          label "Confirm Password"
+          help 'Must be matched with the password given above.'
+        end
+      end
+      edit do
+        field :email do 
+          help 'Required: Must provide email.'
+        end
+        field :password do 
+          help 'Password must be at least 8 character long.'
+        end
+        field :password_confirmation do
+          label "Confirm Password"
+          help 'Must be matched with the password given above.'
+        end
+      end
+    end
+  end
+
 end
