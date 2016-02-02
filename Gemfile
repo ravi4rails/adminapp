@@ -49,3 +49,5 @@ end
 gem 'rails_admin_my_theme', :git => "https://github.com/ravi4rails/rails_admin_my_theme.git"
 gem 'rails_admin'
 gem 'devise'
+gem 'cancancan', '~> 1.10'
+gem 'rolify'
