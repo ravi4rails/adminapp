@@ -1,0 +1,46 @@
+  # Search Method for User model
+
+  def self.search(query)
+    # where("LOWER(email) LIKE LOWER(?)", "%#{query}%")
+    where('users.name LIKE ? OR email LIKE ?', "%#{query}%","%#{query}%")
+  end
+
+  # Index Method for Clients Controller 
+
+  def index
+    if params[:search]
+      @clients = current_user.clients.search(params[:search]).order("created_at DESC")
+    else
+      @clients = current_user.clients.order("created_at DESC")
+    end
+  end
+
+  # Search form for clients.
+
+  <div class="row">
+    <%= form_tag(clients_path, :method => "get", id: "search-form") do %>
+        <div class="col-md-6">
+            <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "input form-control", placeholder: "Search Clients" %>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                </span>
+           <!--  <button class="btn btn-primary" type="submit">Search Article</button> -->
+            </div>
+        </div>
+    <% end %>
+</div>
+
+# Code to verify a prospect
+<div class="form-group">
+  <label for="chkPassport" class="col-lg-2 control-label">
+      Not a Prospect?
+  </label>
+  <input type="checkbox" id="chkPassport" />
+</div>
+<div class="form-group" id="dvPassport" style="display: none">
+  <label class="col-lg-2 control-label">Password</label>
+  <div class="col-lg-10">
+    <%= f.password_field :password, :class => 'form-control' %>
+  </div>
+</div>
